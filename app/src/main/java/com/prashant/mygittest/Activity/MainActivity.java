@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 public int compare(ActivityModel t1, ActivityModel t2) {
                     int t1w = Integer.parseInt(t1.getWatcher());
                     int t2w = Integer.parseInt(t2.getWatcher());
-                    //return t1w > t2w ? -1 : t1w == t2w ? 0 : 1;
+
                     return t1w > t2w ? 1 : 0;
                 }
             });
