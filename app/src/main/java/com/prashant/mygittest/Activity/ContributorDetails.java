@@ -43,7 +43,6 @@ public class ContributorDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
         intentdata = getIntent().getStringExtra("count_det");
 
         imageView = (ImageView) findViewById(R.id.countri_image);

@@ -6,10 +6,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.prashant.mygittest.HttpHandler;
 import com.prashant.mygittest.Adapter.MainRecyAdap;
 import com.prashant.mygittest.Model.ActivityModel;
@@ -41,22 +43,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private List<ActivityModel> userlist;
     String maingiturl="https://api.github.com/search/repositories?q=";
     String appendurl="&sort=stars&order=desc";
-
+    FloatingActionButton fb;
+    FloatingActionMenu fm;
+    String[] namefilter={"sort by fork","sort by star","sort by score","sort by watcher"};
+    ArrayList<FloatingActionButton> floatingActionButtonArrayList = new ArrayList<FloatingActionButton>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         act_recyecler =(RecyclerView)findViewById(R.id.act_recycler);
         act_recyecler.setHasFixedSize(true);
@@ -74,9 +70,81 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         }));
 
+        fm = (FloatingActionMenu)findViewById(R.id.menu_item);
+
+        for (int i = 0; i < namefilter.length; i++) {
+            fb = new FloatingActionButton(MainActivity.this);
+            fb.setImageDrawable(getResources().getDrawable(R.drawable.keep));
+            fb.setLabelText(namefilter[i]);
+            fb.setColorNormal(getResources().getColor(R.color.colorAccentblue));
+            fb.setColorPressed(getResources().getColor(R.color.colorPrimaryDark));
+            fb.setButtonSize(FloatingActionButton.SIZE_MINI);
+            fb.setClickable(true);
+
+            floatingActionButtonArrayList.add(fb);
+
+            final int finalI = i;
+            fb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (finalI==0)
+                    {
+                        Collections.sort(userlist, new Comparator<ActivityModel>() {
+                            @Override
+                            public int compare(ActivityModel lhs, ActivityModel rhs) {
+                                return lhs.getFork_count().compareTo(rhs.getFork_count());
+                            }
+                        });
+
+                        firstRA=new MainRecyAdap(getApplicationContext(),userlist);
+                    }
+                    else if(finalI==1)
+                    {
+                        Collections.sort(userlist, new Comparator<ActivityModel>() {
+                            @Override
+                            public int compare(ActivityModel lhs, ActivityModel rhs) {
+                                return lhs.getStargazers_count().compareTo(rhs.getStargazers_count());
+                            }
+                        });
+
+                        firstRA=new MainRecyAdap(getApplicationContext(),userlist);
+                    }
+                    else if(finalI==2)
+                    {
+                        Collections.sort(userlist, new Comparator<ActivityModel>() {
+                            @Override
+                            public int compare(ActivityModel lhs, ActivityModel rhs) {
+                                return lhs.getScore().compareTo(rhs.getScore());
+                            }
+                        });
+
+                        firstRA=new MainRecyAdap(getApplicationContext(),userlist);
+                    }
+                    else if(finalI==3)
+                    {
+                        Collections.sort(userlist, new Comparator<ActivityModel>() {
+                            @Override
+                            public int compare(ActivityModel lhs, ActivityModel rhs) {
+                                return lhs.getWatcher().compareTo(rhs.getWatcher());
+                            }
+                        });
+
+                        firstRA=new MainRecyAdap(getApplicationContext(),userlist);
+
+                    }
+                    act_recyecler.setAdapter(firstRA);
+                    firstRA.notifyDataSetChanged();
+
+                }
+            });
+            fm.addMenuButton(fb);
+        }
+
         new GetGITData().execute(maingiturl+"android"+appendurl);
       //  new GetGITData().execute("https://api.github.com/search/repositories?q=tetris+language:android&sort=stars&order=desc");
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         try {
             final MenuItem item = menu.findItem(R.id.action_search);
             final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-            searchView.setQueryHint("Search By repositories");
+            searchView.setQueryHint("search repo. like android,php");
 
             searchView.setOnQueryTextListener(this);
 
@@ -146,6 +214,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                         String user = c.getString("name");
                         String full_name = c.getString("full_name");
                         String watchers = c.getString("watchers_count");
+                        String stargazers_count = c.getString("stargazers_count");
+                        String forks_count = c.getString("forks_count");
+                        String score = c.getString("score");
                         String url = c.getString("url");
 
                         JSONObject owner = c.getJSONObject("owner");
@@ -158,6 +229,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                          activityModel.setWatcher(watchers);
                          activityModel.setImage(image);
                          activityModel.setRepo(url);
+                         activityModel.setStargazers_count(stargazers_count);
+                         activityModel.setFork_count(forks_count);
+                         activityModel.setScore(score);
                         userlist.add(activityModel);
                     }
                 } catch (Exception e) {
@@ -174,15 +248,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            Collections.sort(userlist, new Comparator<ActivityModel>() {
-                @Override
-                public int compare(ActivityModel t1, ActivityModel t2) {
-                    int t1w = Integer.parseInt(t1.getWatcher());
-                    int t2w = Integer.parseInt(t2.getWatcher());
 
-                    return t1w > t2w ? 1 : 0;
-                }
-            });
 
             firstRA=new MainRecyAdap(getApplicationContext(),userlist);
             act_recyecler.setAdapter(firstRA);
@@ -192,9 +258,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

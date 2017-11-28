@@ -50,12 +50,15 @@ public class MainRecyAdap extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       try {
 
       recyclerViewHolder.user.setText(activityModel.getUser());
-      recyclerViewHolder.fullname.setText(activityModel.getFullname());
-      recyclerViewHolder.watcher.setText(activityModel.getWatcher());
+      recyclerViewHolder.fullname.setText(" "+activityModel.getFullname());
+      recyclerViewHolder.watcher.setText(" "+activityModel.getWatcher());
+      recyclerViewHolder.stargazers_count.setText( " "+activityModel.getStargazers_count());
+      recyclerViewHolder.fork.setText(" "+activityModel.getFork_count());
+      recyclerViewHolder.score.setText(" "+activityModel.getScore());
 
       String imageURL=activityModel.getImage();
 
-      try {
+    try {
           URI uri = new URI(imageURL.replace(" ", "%20"));
           Picasso.with(context).load(String.valueOf(uri)).placeholder(R.drawable.ic_launcher).into(recyclerViewHolder.imageView);
       } catch (URISyntaxException e) {
@@ -84,7 +87,7 @@ public class MainRecyAdap extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public TextView fullname;
         public ImageView imageView;
         public TextView user;
-        public TextView watcher;
+        public TextView watcher,stargazers_count,score,fork;
         public TextView comit;
 
 
@@ -95,6 +98,9 @@ public class MainRecyAdap extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             this.imageView=(ImageView) itemView.findViewById(R.id.user_image);
             this.watcher=(TextView)itemView.findViewById(R.id.watcher_count);
             this.comit=(TextView)itemView.findViewById(R.id.commit_count);
+            this.stargazers_count=(TextView)itemView.findViewById(R.id.stargazers_count);
+            this.score=(TextView)itemView.findViewById(R.id.score);
+            this.fork=(TextView)itemView.findViewById(R.id.fork1);
         }
     }
 }

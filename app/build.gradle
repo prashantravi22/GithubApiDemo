@@ -29,13 +29,13 @@ dependencies {
         useLibrary 'org.apache.http.legacy'
     }
 
-
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
-
+    compile 'com.github.clans:fab:1.5.2@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

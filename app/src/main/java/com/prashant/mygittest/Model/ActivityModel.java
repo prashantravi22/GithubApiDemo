@@ -13,6 +13,33 @@ public class ActivityModel {
     private String commit;
     private String image;
     private String repo;
+    private String stargazers_count;
+    private String fork_count;
+    private String score;
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public String getStargazers_count() {
+        return stargazers_count;
+    }
+
+    public void setStargazers_count(String stargazers_count) {
+        this.stargazers_count = stargazers_count;
+    }
+
+    public String getFork_count() {
+        return fork_count;
+    }
+
+    public void setFork_count(String fork_count) {
+        this.fork_count = fork_count;
+    }
 
     public String getRepo() {
         return repo;

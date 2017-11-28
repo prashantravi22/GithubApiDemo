@@ -2,8 +2,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
+    android:layout_height="95dp"
     card_view:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -14,88 +13,115 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_weight=".7"
+            android:layout_gravity="left"
+            android:layout_weight=".8"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+            <com.github.siyamed.shapeimageview.CircularImageView
+                xmlns:app="http://schemas.android.com/tools"
                 android:id="@+id/user_image"
-                android:layout_width="180dp"
-                android:layout_height="120dp"
-                android:src="@drawable/ic_launcher" />
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_launcher"
+                app:siBorderColor="@color/darkgray"
+                app:siBorderWidth="1dp" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".3"
+            android:layout_weight=".2"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <TextView
-
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight=".7"
-                    android:paddingBottom="2dp"
-                    android:paddingTop="2dp"
-                    android:text="Name"
-                    android:textColor="#000"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="match_parent"
                     android:layout_weight=".3"
-                    android:paddingBottom="2dp"
-                    android:paddingTop="2dp"
-                    android:text=" name"
-                    android:textSize="11sp" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight=".8"
+                        android:gravity="left"
+                        android:src="@mipmap/user_name" />
+
+                    <TextView
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight=".2"
+                        android:gravity="left"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text=" name"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".8"
+                        android:src="@mipmap/star" />
+
+                    <TextView
+                        android:id="@+id/stargazers_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:text="234" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
-
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight=".7"
-                    android:paddingBottom="2dp"
-                    android:paddingTop="2dp"
-                    android:text="FullName"
-                    android:textColor="#000"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="6dp"
+                    android:layout_weight=".9"
+                    android:gravity="left"
+                    android:src="@mipmap/fullname" />
 
                 <TextView
                     android:id="@+id/full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".3"
+                    android:layout_weight=".1"
                     android:paddingBottom="1dp"
                     android:text="full name"
-                    android:textSize="11sp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
 
@@ -112,7 +138,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/watcher_count"
+                    android:id="@+id/watcher_countq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".3"
@@ -125,7 +151,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
 
@@ -152,9 +179,90 @@
                     />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom|end"
+                android:gravity="bottom|end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:layout_weight=".5"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight=".8"
+                        android:gravity="left"
+                        android:src="@mipmap/watcher" />
+
+                    <TextView
+                        android:id="@+id/watcher_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:text=" 56" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".8"
+                        android:src="@mipmap/fork" />
+
+                    <TextView
+                        android:id="@+id/fork1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:text=" 234" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".8"
+                        android:src="@mipmap/score" />
+
+                    <TextView
+                        android:id="@+id/score"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:text=" 234" />
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="8dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/more" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

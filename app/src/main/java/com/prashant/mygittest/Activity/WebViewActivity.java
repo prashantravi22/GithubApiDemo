@@ -19,8 +19,6 @@ import com.prashant.mygittest.R;
 public class WebViewActivity extends AppCompatActivity {
 
     private WebView webView1;
-    private Toolbar toolbar;
-
     private String url;
 
     @Override

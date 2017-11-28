@@ -47,8 +47,6 @@ public class RepoDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_repo_details);
          Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         repos_url = getIntent().getStringExtra("Repo");
         repo_name = (TextView) findViewById(R.id.repo_name);
         repo_project = (TextView) findViewById(R.id.repo_project_name);
